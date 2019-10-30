@@ -1,0 +1,159 @@
+#########################################
+# This file is part of Barcoder.
+#
+# Barcoder is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, version 3 of the License.
+#
+# Barcoder is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Barcoder.  If not, see <https://www.gnu.org/licenses/>.
+#
+#########################################
+# This file contains all of the parameters for the barcode generation.
+#########################################
+# Initialization options:
+#########################################
+initialize_clearLogs = 1	#flag to clear old logs
+initialize_EMBOSSpath = /usr/local/bin/EMBOSS/bin
+				#location of the EMBOSS executables; if you don't
+				# know, try leaving empty or find path by typing
+				# "whereis palindrome" at the command line
+#########################################
+# General options:
+#########################################
+general_verbose = 1		#how much information to output to console screen
+general_logs = 1		#whether or not to generate a log file
+
+#########################################
+# Blast options:
+#########################################
+blast_blastPath = /common/bin/blastall
+				#location of the blast executables; local copy 
+				# is probably at /usr/local/bin
+blast_blastDB = /nt/nt_v5
+				#location of server instance of NCBI database
+blast_threshold = .65		#threshold to be considered a problem hit; computed
+				# as the ratio between the raw score of the current
+				# hit and the best possible raw score
+
+#########################################
+# Project primer: 
+#	This primer is the same for all target genomes across a given
+# project. It matches each criteria and is blasted against all target and other
+# genomes in the project for uniqueness.
+#########################################
+projPrimer_lengthMin = 20	#minimum allowed primer length 
+projPrimer_lengthMax = 24	#maximum allowed primer length
+projPrimer_TmMin = 58		#minimum allowed Tm
+projPrimer_TmMax = 60		#maximum allowed Tm
+projPrimer_GCmin = 40		#minimum allowed GC-content
+projPrimer_GCmax = 60		#maximum allowed GC-content
+projPrimer_maxATCreps = 4	#maximum number of A/T/C bp repeats
+projPrimer_maxGreps = 3		#maximum number of allowed G repeats
+projPrimer_minHbonds = 14	#minimum number of Hyrdogen bonds in stem of 
+				# stem-loop to be a problem
+projPrimer_minPalLength = 5	#minimum palindrome length to be a problem
+projPrimer_maxPalLength = 100	#maximum palindrome length to be a problem
+projPrimer_gapLimit = 11	#largest loop length in stem-loop to be a problem
+projPrimer_numMismatch = 1	#maximum number of mismatches in stem of
+				# stem-loop to be a problem
+
+#########################################
+# Target primer: 
+#	This primer is the same for all target genomes across a given
+# project. It matches each criteria and is blasted against all target and other
+# genomes in the project for uniqueness.
+#########################################
+targPrimer_lengthMin = 20	#minimum allowed primer length 
+targPrimer_lengthMax = 24	#maximum allowed primer length
+targPrimer_TmMin = 58		#minimum allowed Tm
+targPrimer_TmMax = 60		#maximum allowed Tm
+targPrimer_GCmin = 40		#minimum allowed GC-content
+targPrimer_GCmax = 60		#maximum allowed GC-content
+targPrimer_maxATCreps = 4	#maximum number of A/T/C bp repeats
+targPrimer_maxGreps = 3		#maximum number of allowed G repeats
+targPrimer_minHbonds = 14	#minimum number of Hyrdogen bonds in stem of 
+				# stem-loop to be a problem
+targPrimer_minPalLength = 5	#minimum palindrome length to be a problem
+targPrimer_maxPalLength = 100	#maximum palindrome length to be a problem
+targPrimer_gapLimit = 11	#largest loop length in stem-loop to be a problem
+targPrimer_numMismatch = 1	#maximum number of mismatches in stem of
+				# stem-loop to be a problem
+
+#########################################
+# Target probe: 
+#	This primer is the same for all target genomes across a given
+# project. It matches each criteria and is blasted against all target and other
+# genomes in the project for uniqueness.
+#########################################
+targProbe_lengthMin = 20	#minimum allowed primer length 
+targProbe_lengthMax = 30	#maximum allowed primer length
+targProbe_TmMin = 68		#minimum allowed Tm
+targProbe_TmMax = 70		#maximum allowed Tm
+targProbe_GCmin = 40		#minimum allowed GC-content
+targProbe_GCmax = 60		#maximum allowed GC-content
+targProbe_maxATCreps = 4	#maximum number of A/T/C bp repeats
+targProbe_maxGreps = 3		#maximum number of allowed G repeats
+targProbe_minHbonds = 14	#minimum number of Hyrdogen bonds in stem of 
+				# stem-loop to be a problem
+targProbe_minPalLength = 5	#minimum palindrome length to be a problem
+targProbe_maxPalLength = 100	#maximum palindrome length to be a problem
+targProbe_gapLimit = 11		#largest loop length in stem-loop to be a problem
+targProbe_numMismatch = 1	#maximum number of mismatches in stem of
+				# stem-loop to be a problem
+
+#########################################
+# Spacer sequences: 
+#	These parameters are for adding spacer sequence to make a complete 
+# barcode module. These parameters are used when the module is checked for the
+# formation of stem-loops.
+#########################################
+spacer_minHbonds = 14		#minimum number of Hyrdogen bonds in stem of 
+				# stem-loop to be a problem
+spacer_minPalLength = 10	#minimum palindrome length to be a problem
+spacer_maxPalLength = 80	#maximum palindrome length to be a problem
+spacer_gapLimit = 11		#largest loop length in stem-loop to be a problem
+spacer_numMismatch = 1		#maximum number of mismatches in stem of
+				# stem-loop to be a problem
+spacer_primerGap = 100		#number of base pairs separating primers (includes
+				# the length of the probe)
+
+#########################################
+# Target finding parameters:
+#	These parameters determine what the script includes/excludes as good
+# candidates for barcode insertion locations.
+#########################################
+target_minGap = 500		#minimum size of gap between convergent CDS's
+target_maxGap = 2000		#maximum size of gap between convergent CDS's
+target_homRecombSize = 750	#size of flanking regions on either side of 
+				# target insertion point 
+target_locRep_Nmer = 2		#minimum size of repeated nmers to qualify
+				# as a local repitive region (see locRep_Reps)
+target_locRep_Reps = 6		#minimum number of repeated nmers to qualify
+				# as a local repitive region (see locRep_Reps)
+target_ORFbuffer = 400		#the size outside of the gap that should be 
+				# scanned for potential ORFs (note that this is
+				# in addition to scanning the entire gap region,
+				# which can be of a size defined above)
+target_minORFsize = 300		#minimum size of a potential ORF to be considered
+				# a problem
+target_maxORFsize = 2000	#maximum size of a potential ORF to be considered
+				# a problem
+target_lgRepBound = 5000	#range to search within for large repetitive
+				# elements
+target_lgRepMinSize = 100	#minimum size of large repetitive elements
+target_lgRepMaxSize = 500	#maximum size of large repetitive elements
+
+
+
+
+
+
+
+
+
