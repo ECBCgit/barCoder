@@ -1,17 +1,17 @@
 #########################################
-# This file is part of Barcoder.
+# This file is part of barCoder.
 #
-# Barcoder is free software: you can redistribute it and/or modify
+# barCoder is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, version 3 of the License.
 #
-# Barcoder is distributed in the hope that it will be useful,
+# barCoder is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with Barcoder.  If not, see <https://www.gnu.org/licenses/>.
+# along with barCoder.  If not, see <https://www.gnu.org/licenses/>.
 #
 #########################################
 # Subroutine addSpacer: generates spacer sequence to fill in barcode module. The
@@ -162,20 +162,5 @@ sub getFileGCcontent {
 	#compute the GC content from the total GC count and the total length
 	return $totGCs/$totLength;
 } #end getGCcontent subroutine
-
-#########################################
-# Subroutine addHomRecomb: takes a target genome file, target insertion point, 
-#  and a desired barcode sequence, and computes the sequence needed to perform 
-#  homologous recombination. The output is also written to the file "****.txt"
-# Inputs:
-#   - genome file name
-#   - target insertion point
-#   - barcode sequence
-# Outputs:
-#   - full insertion module sequence
-#########################################
-sub addHomRecomb {
-
-} #end addHomRecomb subroutine
 
 1;

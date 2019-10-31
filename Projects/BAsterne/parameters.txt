@@ -1,17 +1,17 @@
 #########################################
-# This file is part of Barcoder.
+# This file is part of barCoder.
 #
-# Barcoder is free software: you can redistribute it and/or modify
+# barCoder is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, version 3 of the License.
 #
-# Barcoder is distributed in the hope that it will be useful,
+# barCoder is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with Barcoder.  If not, see <https://www.gnu.org/licenses/>.
+# along with barCoder.  If not, see <https://www.gnu.org/licenses/>.
 #
 #########################################
 # This file contains all of the parameters for the barcode generation.
@@ -124,31 +124,6 @@ spacer_numMismatch = 1		#maximum number of mismatches in stem of
 spacer_primerGap = 100		#number of base pairs separating primers (includes
 				# the length of the probe)
 
-#########################################
-# Target finding parameters:
-#	These parameters determine what the script includes/excludes as good
-# candidates for barcode insertion locations.
-#########################################
-target_minGap = 500		#minimum size of gap between convergent CDS's
-target_maxGap = 1000		#maximum size of gap between convergent CDS's
-target_homRecombSize = 750	#size of flanking regions on either side of 
-				# target insertion point 
-target_locRep_Nmer = 2		#minimum size of repeated nmers to qualify
-				# as a local repitive region (see locRep_Reps)
-target_locRep_Reps = 6		#minimum number of repeated nmers to qualify
-				# as a local repitive region (see locRep_Reps)
-target_ORFbuffer = 400		#the size outside of the gap that should be 
-				# scanned for potential ORFs (note that this is
-				# in addition to scanning the entire gap region,
-				# which can be of a size defined above)
-target_minORFsize = 300		#minimum size of a potential ORF to be considered
-				# a problem
-target_maxORFsize = 2000	#maximum size of a potential ORF to be considered
-				# a problem
-target_lgRepBound = 5000	#range to search within for large repetitive
-				# elements
-target_lgRepMinSize = 100	#minimum size of large repetitive elements
-target_lgRepMaxSize = 500	#maximum size of large repetitive elements
 
 
 

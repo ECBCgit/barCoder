@@ -1,17 +1,17 @@
 #########################################
-# This file is part of Barcoder.
+# This file is part of barCoder.
 #
-# Barcoder is free software: you can redistribute it and/or modify
+# barCoder is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, version 3 of the License.
 #
-# Barcoder is distributed in the hope that it will be useful,
+# barCoder is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with Barcoder.  If not, see <https://www.gnu.org/licenses/>.
+# along with barCoder.  If not, see <https://www.gnu.org/licenses/>.
 #
 #########################################
 # Introduction
@@ -71,20 +71,17 @@
 # User Guide
 #########################################
 # The first step is to create a new project directory. This directory needs to 
-# 	be placed under the Barcode/Projects/ directory. There is a directory
-#	there called "sample" as an example.
+# 	be placed under the Barcode/Projects/ directory. There are directories
+#	there called BAsterne, BTK and YPco92 as examples.
 #
 # This folder should contain the following (some are optional):
 #	(1) Subdirectory containing the target genomes. These can be in genbank or
-#		fasta format. Note: for generating target insertion sites, the 
-#		script only accepts files with single sequences in them (i.e.
-#		not files with multiple contigs). Files with multiple contigs
-#		are fine for generating barcodes.
+#		fasta format. 
 #	(2) Text file containing the script parameters, called "parameters.txt".
 #		These include things like target Tm and blast threshold to count 
-#		as a "match." This file should be copied from the "sample" 
+#		as a "match." This file should be copied from the BAsterne, BTK or YPco92  
 #		project and tweaked as appropriate. Each parameter is described 
-#		in the "parameters.txt" file in the sample directory.
+#		in the "parameters.txt" file in the project directory.
 #	(2) (optional) Subdirectory containing other genomes (genbank or fasta 
 #		format).
 #	(4) (optional) List of primers to avoid from previous projects. Fasta
@@ -100,9 +97,7 @@
 #	- project_name = name of the subdirectory of the current project, located
 #		at Barcode/Projects/project_name
 #	- nBarcodes = number of barcodes to generate per target genome (it is 
-#		useful to generate multiple in case some fail). If 0, no barcodes
-#		will be generated (useful in the case that only targets insertion
-#		sites are needed)
+#		useful to generate multiple in case some fail). 
 # Outputs:
 #	- primerList.fa: list of primers generated for barcodes
 #	- barcodeList.fa: list of barcodes generated

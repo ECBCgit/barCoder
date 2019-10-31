@@ -1,18 +1,18 @@
 #!/usr/local/bin/perl
 #########################################
-# This file is part of Barcoder.
+# This file is part of barCoder.
 #
-# Barcoder is free software: you can redistribute it and/or modify
+# barCoder is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, version 3 of the License.
 #
-# Barcoder is distributed in the hope that it will be useful,
+# barCoder is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with Barcoder.  If not, see <https://www.gnu.org/licenses/>.
+# along with barCoder.  If not, see <https://www.gnu.org/licenses/>.
 #
 #########################################
 use strict;
@@ -108,21 +108,7 @@ while (<paramFile>) {
 		elsif 	($1=~/gapLimit/) { 	$spacerParams[3]=$hit; }
 		elsif 	($1=~/numMismatch/) { 	$spacerParams[4]=$hit; }	
 		elsif 	($1=~/primerGap/) { 	$spacerParams[5]=$hit; }
-	#Now grab target parameters
-	} elsif ($curLine=~m/target_(\w*) = (\d*)/) {
-		my $hit=$2;
-		if 	($1=~/minGap/) { 	$targetParams[0]=$hit; }
-		elsif 	($1=~/maxGap/) { 	$targetParams[1]=$hit; }
-		elsif 	($1=~/homRecombSize/) {	$targetParams[2]=$hit; }
-		elsif 	($1=~/locRep_Nmer/) { 	$targetParams[3]=$hit; }
-		elsif 	($1=~/locRep_Reps/) { 	$targetParams[4]=$hit; }	
-		elsif 	($1=~/ORFbuffer/) { 	$targetParams[5]=$hit; }
-		elsif 	($1=~/minORFsize/) { 	$targetParams[6]=$hit; }
-		elsif 	($1=~/maxORFsize/) { 	$targetParams[7]=$hit; }
-		elsif 	($1=~/lgRepBound/) { 	$targetParams[8]=$hit; }
-		elsif 	($1=~/lgRepMinSize/) { 	$targetParams[9]=$hit; }
-		elsif 	($1=~/lgRepMaxSize/) { 	$targetParams[10]=$hit; }
-	}
+	} 
 }
 
 #Compile into single output w/ junk character spacers for later parsing
