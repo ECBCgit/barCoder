@@ -139,11 +139,12 @@ chdir($dir);
 
 my $toggle=shift(@primer1Params);
 my $primer1Seq;
+my $primerType;
 # If projectPrimer option is selected, generate the project primer
 if ($toggle==1) {
 	my $genomeFile='all genomes in project';
-	my $primerType='Project Primer';
-	$primer1Seq=genPrimer($j,$genomeFile,$primerType,@genParams,
+	$primerType='Project Primer';
+	$primer1Seq=genPrimer(1,$genomeFile,$primerType,@genParams,
 		@blastParams,@primer1Params);
 }
 
@@ -157,8 +158,8 @@ for (my $j=1; $j<=$nBarcodes; $j++) {
 		#skip files ending in ~
 		if ($genome=~/\w$/) {
 			# If projectPrimer is not selected, generate target primer 1	
-			if ($toggle ~=1) {
-				my $primerType='Target Primer 1';
+			if ($toggle!=1) {
+				$primerType='Target Primer 1';
 				$primer1Seq=genPrimer($j,$genome,$primerType,
 					@genParams,@blastParams,@primer1Params);	
 			}

@@ -48,8 +48,9 @@ blast_threshold = .65		#threshold to be considered a problem hit; computed
 # project. It matches each criteria and is blasted against all target and other
 # genomes in the project for uniqueness.
 #########################################
-projPrimer_toggle=1			#toggle whether a single primer is used across the project
-							#set to 0 for unique primers, or 1 for a single project primer
+projPrimer_toggle = 1		#toggle whether a single primer is used across the project
+							#set to 0 to generate a new primer for each barcode, 
+							#or 1 for a single project primer
 projPrimer_lengthMin = 20	#minimum allowed primer length 
 projPrimer_lengthMax = 24	#maximum allowed primer length
 projPrimer_TmMin = 58		#minimum allowed Tm
