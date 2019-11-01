@@ -43,8 +43,8 @@ sub genPrimer {
 #General Parameters
 my $curRep=@_[0];		#counter for generating multiple alternative
 				# barcodes
-my $curGenome=@_[1];		#project primer, target primer, or target probe
-my $curPrimerType=@_[2];	#name of the file with info on the current genome 
+my $curGenome=@_[1];		#name of the file with info on the current genome
+my $curPrimerType=@_[2];	#project primer, target primer, or target probe
 my $v=@_[3]; 			#verbose output off or on
 my $log=@_[4];			#write to log file on or off
 #Blast Parameters

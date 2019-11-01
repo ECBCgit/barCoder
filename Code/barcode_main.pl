@@ -69,7 +69,6 @@ foreach my $param (@params) {
 	elsif ($groupCnt==4) { $primer2Params[$paramCnt]=$param; $paramCnt++; }
 	elsif ($groupCnt==5) { $probeParams[$paramCnt]=$param; $paramCnt++; }
 	elsif ($groupCnt==6) { $spacerParams[$paramCnt]=$param; $paramCnt++; }
-	elsif ($groupCnt==7) { $targetParams[$paramCnt]=$param; $paramCnt++; }
 }
 #----------------------------------------
 # Set up logs
@@ -137,22 +136,32 @@ my $dir=getcwd();
 chdir('targetGenomes');
 my @genomes=<*>;
 chdir($dir);
+
+my $toggle=shift(@primer1Params);
+my $primer1Seq;
+# If projectPrimer option is selected, generate the project primer
+if ($toggle==1) {
+	my $genomeFile='all genomes in project';
+	my $primerType='Project Primer';
+	$primer1Seq=genPrimer($j,$genomeFile,$primerType,@genParams,
+		@blastParams,@primer1Params);
+}
+
+
 # Repeat so that you get a number of barcodes = nBarcodes for each target
 # genome
 for (my $j=1; $j<=$nBarcodes; $j++) {
-	#Generate the project primer
-#	my $genomeFile='all genomes in project';
-#	my $primerType='Project Primer';
-#	my $projPrimerSeq=genPrimer($j,$genomeFile,$primerType,@genParams,
-#		@blastParams,@projPrimerParams);
+	;
 	#go through each target genome
 	foreach my $genome (@genomes) {
 		#skip files ending in ~
 		if ($genome=~/\w$/) {
-			# Generate target primer 1	
-			my $primerType='Target Primer 1';
-			my $primer1Seq=genPrimer($j,$genome,$primerType,
-				@genParams,@blastParams,@primer1Params);	
+			# If projectPrimer is not selected, generate target primer 1	
+			if ($toggle ~=1) {
+				my $primerType='Target Primer 1';
+				$primer1Seq=genPrimer($j,$genome,$primerType,
+					@genParams,@blastParams,@primer1Params);	
+			}
 			# Generate target primer 2	
 			$primerType='Target Primer 2';
 			my $primer2Seq=genPrimer($j,$genome,$primerType,

@@ -54,19 +54,20 @@ while (<paramFile>) {
 	#Now grab project primer parameters
 	} elsif ($curLine=~m/projPrimer_(\w*) = (\d*)/) {
 		my $hit=$2;
-		if 	($1=~/lengthMin/) { 	$primer1Params[0]=$hit; }
-		elsif 	($1=~/lengthMax/) { 	$primer1Params[1]=$hit; }	
-		elsif 	($1=~/TmMin/) { 	$primer1Params[2]=$hit; }	
-		elsif 	($1=~/TmMax/) { 	$primer1Params[3]=$hit; }	
-		elsif 	($1=~/GCmin/) { 	$primer1Params[4]=$hit; }	
-		elsif 	($1=~/GCmax/) { 	$primer1Params[5]=$hit; }	
-		elsif 	($1=~/maxATCreps/) { 	$primer1Params[6]=$hit; }	
-		elsif 	($1=~/maxGreps/) { 	$primer1Params[7]=$hit; }	
-		elsif 	($1=~/minHbonds/) { 	$primer1Params[8]=$hit; }
-		elsif 	($1=~/minPalLength/) { 	$primer1Params[9]=$hit; }
-		elsif 	($1=~/maxPalLength/) { 	$primer1Params[10]=$hit; }
-		elsif 	($1=~/gapLimit/) { 	$primer1Params[11]=$hit; }
-		elsif 	($1=~/numMismatch/) { 	$primer1Params[12]=$hit; }
+		if 	($1=~/toggle/) { 	$primer1Params[0]=$hit; }
+		elsif 	($1=~/lengthMin/) { 	$primer1Params[1]=$hit; }
+		elsif 	($1=~/lengthMax/) { 	$primer1Params[2]=$hit; }	
+		elsif 	($1=~/TmMin/) { 	$primer1Params[3]=$hit; }	
+		elsif 	($1=~/TmMax/) { 	$primer1Params[4]=$hit; }	
+		elsif 	($1=~/GCmin/) { 	$primer1Params[5]=$hit; }	
+		elsif 	($1=~/GCmax/) { 	$primer1Params[6]=$hit; }	
+		elsif 	($1=~/maxATCreps/) { 	$primer1Params[7]=$hit; }	
+		elsif 	($1=~/maxGreps/) { 	$primer1Params[8]=$hit; }	
+		elsif 	($1=~/minHbonds/) { 	$primer1Params[9]=$hit; }
+		elsif 	($1=~/minPalLength/) { 	$primer1Params[10]=$hit; }
+		elsif 	($1=~/maxPalLength/) { 	$primer1Params[11]=$hit; }
+		elsif 	($1=~/gapLimit/) { 	$primer1Params[12]=$hit; }
+		elsif 	($1=~/numMismatch/) { 	$primer1Params[13]=$hit; }
 	#Now grab target primer parameters
 	} elsif ($curLine=~m/targPrimer_(\w*) = (\d*)/) {
 		my $hit=$2;
