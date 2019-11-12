@@ -66,7 +66,8 @@ my $maxPalLength=@_[17];	#maximum palindrome length to be a problem
 my $gapLimit=@_[18];		#largest loop length in stem-loop to be a problem
 my $numMismatch=@_[19];		#maximum number of mismatches in stem of
 				# stem-loop to be a problem
-
+chomp(my $cpu_count = `grep -c -P '^processor\\s+:' /proc/cpuinfo`); # cpu count
+#print $cpu_count;
 #########################################
 # Basic declarations, etc.
 #########################################
@@ -295,7 +296,7 @@ while ($passAll==0) {
 	#Check current primer against primers from previous projects
 	my $subPath = '/allPrevPrimers.fa';
 	my $pass=0;
-	$maxScore=blastFile($subPath,$blastThresh,$randSeqObj);
+	$maxScore=blastFile($subPath,$blastThresh,$randSeqObj, $cpu_count);
 	#update log and user on progress
 	update("\tBlasting vs previous primers file: ".
 		"allPrevPrimers.fa...",$v,$log);
@@ -308,7 +309,7 @@ while ($passAll==0) {
 		#Check current primer against the current list of primers for the
 		# current project
 		$subPath = '/primerList.fa';
-		$maxScore=blastFile($subPath,$blastThresh,$randSeqObj);
+		$maxScore=blastFile($subPath,$blastThresh,$randSeqObj, $cpu_count);
 	} 
 	#if sequence passes being blasted against list of current project's
 	# primers, check against target genomes
@@ -317,14 +318,14 @@ while ($passAll==0) {
 		update("OK\n",$v,$log);
 		#Next check against the target genomes for the project
 		$maxScore=blastGenomeDir(
-			'targetGenomes',$blastThresh,$randSeqObj,$v,$log);
+			'targetGenomes',$blastThresh,$randSeqObj,$v,$log, $cpu_count);
 	}
 	#if sequence passes being blasted against target genomes, check against
 	# other genomes
 	if ($maxScore<=$blastThresh) {
 		#blast primer against other genomes
 		$maxScore=blastGenomeDir(
-			'otherGenomes',$blastThresh,$randSeqObj,$v,$log);
+			'otherGenomes',$blastThresh,$randSeqObj,$v,$log, $cpu_count);
 	}
 	#if sequence passes being blasted against other genomes, check against
 	# NCBI db
@@ -339,7 +340,7 @@ while ($passAll==0) {
 		
 		if (length $randSeqObj < 20) { update("\nWarning: BLAST shorter that 20 bases\n",$v,$log);}
 		my $blastDBreport=$blastDBfactory->blastn(-query=>$randSeqObj, 
-							-method_args => [ -task => 'blastn-short']);
+							-method_args => [ -task => 'blastn-short', -num_threads => "\'".$cpu_count."\'"]);
 		#grab the first result
 		#my $topBlastDBresult=$blastDBreport->next_result;
 		my $topBlastDBresult=$blastDBreport->next_hit;
@@ -354,6 +355,8 @@ while ($passAll==0) {
 			#compute score of the top hit
 			$maxScore=$topBlastDBhit->raw_score/$randSeqObj->length;
 		}
+		`rm -f BLO*`;  #Cleanup temporary files
+		`rm -f DBD*`;
 	}
 	#if sequence doesn't pass any of the blast checks, try again
 	if ($maxScore>$blastThresh) {
@@ -539,6 +542,7 @@ sub blastGenomeDir {
 	my $randSeqObj=@_[2];
 	my $v=@_[3];
 	my $log=@_[4];
+	my $cpu_count=@_[5];
 	#declare key variables
 	my $curScore=0;
 	#change directory grab filenames
@@ -556,7 +560,7 @@ sub blastGenomeDir {
 		update("\tBlasting vs $subdir genome file: $genomeFile...",
 			$v,$log);
 		#cycle through all the sequences in a file
-		$maxScore=blastFile($subPath,$threshold,$randSeqObj);
+		$maxScore=blastFile($subPath,$threshold,$randSeqObj, $cpu_count);
 		#if it's a fail, break all the way out
 		if ($maxScore>$threshold) { 
 			last; 	#abort current folder
@@ -587,6 +591,7 @@ sub blastFile {
 	my $subPath=@_[0];
 	my $threshold=@_[1];
 	my $randSeqObj=@_[2];
+	my $cpu_count = @_[3];
 	#declare key variables
 	my $projPath=getcwd();
 	#load sequence file
@@ -605,9 +610,9 @@ sub blastFile {
 		if ($curSeq=~m/^$/) { last; }
 		#blast primer sequence against current file sequence
 		if (length $randSeqObj < 20) { update("\nWarning: BLAST shorter that 20 bases\n",$v,$log);}
-		
+
 		my $curReport=$blastFactory->bl2seq(-method=>'blastn', -query=>$randSeqObj, -subject=>$curSeq,
-							-method_args => [ -task => 'blastn-short']);
+						    -method_args => [ -task => 'blastn-short', -num_threads => "\'".$cpu_count."\'"]);
 		#process blast report
 		#my $curResult=$curReport->next_iteration;
 		#make sure there are hits; if not, go to next sequence in file
@@ -624,6 +629,8 @@ sub blastFile {
 		} elsif ($curScore>$maxScore) {
 			$maxScore=$curScore;
 		} 
+		`rm -f BLO*`;  #Cleanup	temporary files
+                `rm -f DBD*`;
 	}
 	return $maxScore;
 } #end blastFile subroutine

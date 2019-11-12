@@ -24,8 +24,8 @@
 #
 # This software was tested on CentOS 7, and requires at least 64 GB of RAM in 
 # order to support BLAST searches against the "nt" database. A modern CPU is 
-# recommended, however the program is not currently optimized for multi-threaded
-# processing. 
+# recommended, however only the BLAST searches utilize multi-threaded
+# processing. The default behavior is to use all cores available for BLAST. 
 #
 # Dependencies:
 #
