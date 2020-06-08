@@ -55,14 +55,19 @@ sub addSpacer {
 	my $percentGenomeGC=getFileGCcontent($genome);
 	my $GCprimer1=0; while($primer1=~m/[GC]/g) { $GCprimer1++ };
 	my $GCprimer2=0; while($primer2=~m/[GC]/g) { $GCprimer2++ };
-	my $GCprobe=0; while($probe=~m/[GC]/g) { $GCprobe++ };
-	#compute number of GCs and total length needed for the spacers
-	my $totalBClength=$primerGap+length($primer1)+length($primer2);
-	my $totalGCsNeeded=floor($percentGenomeGC*$totalBClength);
-	my $spacerGCsNeeded=$totalGCsNeeded-$GCprimer1-$GCprimer2-$GCprobe;
-	my $totSpacerLength=$primerGap-length($probe);
-	my $GCsPerProbe=floor($spacerGCsNeeded/2);
-	my $ATsPerProbe=floor(($totSpacerLength-$spacerGCsNeeded)/2);
+	my $GCprobe=0; while($probe=~m/[GC]/g) { $GCprobe++ };	
+	#compute total barcode length
+    my $totalBClength=$primerGap+length($primer1)+length($primer2);
+    #compute total number of GCs needed across barcode
+    my $totalGCsNeeded=floor($percentGenomeGC*$totalBClength);
+    #compute number of GCs needed in spacers
+    my $spacerGCsNeeded=$totalGCsNeeded-$GCprimer1-$GCprimer2-$GCprobe;
+    #compute total length of spacer sequences
+    my $totSpacerLength=$primerGap-length($probe);
+    #compute number of GCs per spacer
+    my $GCsPerSpacer=floor($spacerGCsNeeded/2);
+    #compute number of ATs per spacer
+    my $ATsPerSpacer=floor(($totSpacerLength-$spacerGCsNeeded)/2);
 	#update log and user on progress
 	update("done\n",$v,$log);
 	#------------------------------
@@ -76,14 +81,20 @@ sub addSpacer {
 	while ($barcodePass==0) {
 		#set the flag to pass unless it fails below
 		$barcodePass=1;
-		#generate spacer sequence
-		$spacer1=genRand($ATsPerProbe,$GCsPerProbe);
-		$spacer2=genRand($ATsPerProbe,$GCsPerProbe);
-		#take reverse complement of primer 2
-		my $primer2rc=reverse($primer2);
-		$primer2rc =~ tr/ATCGatcg/TAGCtagc/;		
-		#assemble barcode into a single sequence
-		$barcode=$primer1.$spacer1.$probe.$spacer2.$primer2rc;
+		#generate first spacer
+        my $spacer1=genRand($ATsPerSpacer,$GCsPerSpacer);
+        #compute number of extra bases needed in second spacer due to rounding
+        my $extraBases = $totSpacerLength-2*length($spacer1);
+        #generate second spacer
+        my $spacer2=genRand($ATsPerSpacer,$GCsPerSpacer+$extraBases);
+        #take reverse complement of primer 2
+        my $primer2rc=reverse($primer2);
+        $primer2rc =~ tr/ATCGatcg/TAGCtagc/;       
+        #assemble barcode into a single sequence
+        $barcode=$primer1.$spacer1.$probe.$spacer2.$primer2rc;
+		
+		
+		
 		#update log and user on progress
 		update("Current barcode = $barcode\n",$v,$log);
 		#check for stem-loops

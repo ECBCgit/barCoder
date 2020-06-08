@@ -182,12 +182,12 @@ while ($passAll==0) {
 			}
 		} 
 		#----------------------------------------
-		# Check for >2 G/C's in last 5 bases at 3' end (only relevant  
+		# Check for # G/C's !=2 in last 5 bases at 3' end (only relevant  
 		# for primers, not probes
 		#----------------------------------------		
 		else {
 			#update log and user on progress
-			update("\tChecking for >2 C/G's in last 5 bps @ 5' end ".
+			update("\tChecking for # C/G's !=2 in last 5 bps @ 3' end ".
 				"(primers only)...",$v,$log);
 			#split into array
 			my @bps=split('',$randSeq);
@@ -198,7 +198,7 @@ while ($passAll==0) {
 			}
 			#while there is still a G at the 1st postion, 
 			#shift it to the end
-			if ($GCcnt > 2) {
+			if ($GCcnt != 2) { 
 				#shuffle sequence
 				$randSeq=shuffleSeq($randSeq);
 				#update log and user on progress
@@ -355,9 +355,8 @@ while ($passAll==0) {
 			#compute score of the top hit
 			$maxScore=$topBlastDBhit->raw_score/$randSeqObj->length;
 		}
-		`rm -f BLO*`;  #Cleanup temporary files
-		`rm -f DBD*`;
-	}
+		$blastDBfactory->cleanup;
+	}	
 	#if sequence doesn't pass any of the blast checks, try again
 	if ($maxScore>$blastThresh) {
 		#update log and user on progress
@@ -404,7 +403,7 @@ sub genRand {
 		if ($rAT==1) { $randSeq=$randSeq.'T'; }
 	}
 	#generate a random string of GCs of length nGC
-	for ($i=1;$i<$nGC;$i++) {
+	for ($i=0;$i<$nGC;$i++) {
 		$rGC=int(rand(2));
 		if ($rGC==0) { $randSeq=$randSeq."G"; }
 		if ($rGC==1) { $randSeq=$randSeq."C"; }
@@ -629,9 +628,8 @@ sub blastFile {
 		} elsif ($curScore>$maxScore) {
 			$maxScore=$curScore;
 		} 
-		`rm -f BLO*`;  #Cleanup	temporary files
-                `rm -f DBD*`;
 	}
+	$blastFactory->cleanup;  #Cleanup	temporary files
 	return $maxScore;
 } #end blastFile subroutine
 
