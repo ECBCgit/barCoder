@@ -84,8 +84,9 @@
 #		as a "match." This file should be copied from the BAsterne, BTK or YPco92  
 #		project and tweaked as appropriate. Each parameter is described 
 #		in the "parameters.txt" file in the project directory.
-#	(2) (optional) Subdirectory containing other genomes (genbank or fasta 
-#		format).
+#	(3) Subdirectory containing other genomes (genbank or fasta 
+#		format). The subdirectory is required, but genome files are optional, so 
+#		the subdirectory may be left empty.
 #	(4) (optional) List of primers to avoid from previous projects. Fasta
 #		file listing primers. File should be named prevPrimers* (i.e.
 #		can have prevPrimers1.fasta, prevPrimersProject2.fas, etc.)
