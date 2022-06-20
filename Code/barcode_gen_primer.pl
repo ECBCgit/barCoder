@@ -321,8 +321,8 @@ while ($passAll==0) {
 			'targetGenomes',$blastThresh,$randSeqObj,$v,$log, $cpu_count);
 	}
 	#if sequence passes being blasted against target genomes, check against
-	# other genomes
-	if ($maxScore<=$blastThresh) {
+	# other genomes if present
+	if ($maxScore<=$blastThresh && -d "otherGenomes") {
 		#blast primer against other genomes
 		$maxScore=blastGenomeDir(
 			'otherGenomes',$blastThresh,$randSeqObj,$v,$log, $cpu_count);
