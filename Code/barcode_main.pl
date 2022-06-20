@@ -73,6 +73,8 @@ foreach my $param (@params) {
 #----------------------------------------
 # Set up logs
 #----------------------------------------
+
+mkdir($projPath."/Logs");
 chdir($projPath."/Logs") or die "Failed to open directory Logs: $!";
 # If instructed to, remove old log files
 my $clearLogsFlag=$initParams[0];
