@@ -102,7 +102,8 @@ close(allPrevPrimers);
 open(allPrevPrimers,">>allPrevPrimers.fa") 
 	or die "Failed to open results file: $!";
 # Switch to directory containing primers to avoid
-chdir($projPath."/previousPrimers") or die "Failed to open directory Logs: $!";
+mkdir($projPath."/previousPrimers");
+chdir($projPath."/previousPrimers") or die "Failed to open directory previousPrimers: $!";
 # Run through all files containing lists of previous primers
 foreach my $file (<*>) {
 	open(prevPrimerList,$file) or die "Failed to open file: $!";
