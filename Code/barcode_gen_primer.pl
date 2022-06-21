@@ -89,6 +89,13 @@ for my $length ($lengthMin ... $lengthMax) {
 	}
 }
 
+if (!@probeParams) {
+    die("Not possible to generate a sequence with a length between $lengthMin ".
+	"and $lengthMax, a percGC between $GCmin and $GCmax, and a Tm between ".
+	"$TmMin and $TmMax.");
+}
+
+
 #########################################
 # Main loop: cycles through the various requirements, fixing where possible,
 # or starting with a new random sequence if necessary.
