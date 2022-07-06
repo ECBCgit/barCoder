@@ -40,6 +40,7 @@ blast_blastDB = /nt/nt_v5
 blast_threshold = .65		#threshold to be considered a problem hit; computed
 				# as the ratio between the raw score of the current
 				# hit and the best possible raw score
+blast_checkDB = 1		#whether or not to check the NCBI database
 
 #########################################
 # Project primer: 

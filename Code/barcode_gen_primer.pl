@@ -50,21 +50,22 @@ my $log=@_[4];			#write to log file on or off
 #Blast Parameters
 my $blastDB=@_[5];		#location of NCBI db
 my $blastThresh=@_[6];		#max allowed blast hit
+my $blastCheckDb=@_[7];         #whether to check NCBI db
 #Primer Parameters
-my $lengthMin=@_[7];		#minimum allowed primer length 
-my $lengthMax=@_[8];		#maximum allowed primer length
-my $TmMin=@_[9];		#minimum allowed Tm
-my $TmMax=@_[10];		#maximum allowed Tm
-my $GCmin=@_[11];		#minimum allowed GC-content
-my $GCmax=@_[12];		#maximum allowed GC-content
-my $maxATCreps=@_[13]+1;	#maximum number of A/T/C bp repeats
-my $maxGreps=@_[14]+1;		#maximum number of allowed G repeats
-my $minHbonds=@_[15];		#minimum number of hyrdogen bonds in stem of 
+my $lengthMin=@_[8];		#minimum allowed primer length 
+my $lengthMax=@_[9];		#maximum allowed primer length
+my $TmMin=@_[10];		#minimum allowed Tm
+my $TmMax=@_[11];		#maximum allowed Tm
+my $GCmin=@_[12];		#minimum allowed GC-content
+my $GCmax=@_[13];		#maximum allowed GC-content
+my $maxATCreps=@_[14]+1;	#maximum number of A/T/C bp repeats
+my $maxGreps=@_[15]+1;		#maximum number of allowed G repeats
+my $minHbonds=@_[16];		#minimum number of hyrdogen bonds in stem of 
 				# stem-loop to be a problem
-my $minPalLength=@_[16];	#minimum palindrome length to be a problem
-my $maxPalLength=@_[17];	#maximum palindrome length to be a problem
-my $gapLimit=@_[18];		#largest loop length in stem-loop to be a problem
-my $numMismatch=@_[19];		#maximum number of mismatches in stem of
+my $minPalLength=@_[17];	#minimum palindrome length to be a problem
+my $maxPalLength=@_[18];	#maximum palindrome length to be a problem
+my $gapLimit=@_[19];		#largest loop length in stem-loop to be a problem
+my $numMismatch=@_[20];		#maximum number of mismatches in stem of
 				# stem-loop to be a problem
 chomp(my $cpu_count = `grep -c -P '^processor\\s+:' /proc/cpuinfo`); # cpu count
 #print $cpu_count;
@@ -329,7 +330,7 @@ while ($passAll==0) {
 	}
 	#if sequence passes being blasted against other genomes, check against
 	# NCBI db
-	if ($maxScore<=$blastThresh) {
+	if ($maxScore<=$blastThresh && $blastCheckDb) {
 		#update log and user on progress
 		update("\tBlasting vs NCBI database...",$v,$log);
 		#set up blast factory for NCBI db

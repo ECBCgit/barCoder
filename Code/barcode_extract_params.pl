@@ -51,6 +51,7 @@ while (<paramFile>) {
 		if ($1=~/blastPath/) { system("export PATH=\$PATH:$hit"); }
 		elsif ($1=~/blastDB/) { $blastParams[0]=$hit; }
 		elsif ($1=~/threshold/) { $blastParams[1]=$hit; }
+		elsif ($1=~/checkDB/) { $blastParams[2]=$hit; }
 	#Now grab project primer parameters
 	} elsif ($curLine=~m/projPrimer_(\w*) = (\d*)/) {
 		my $hit=$2;
